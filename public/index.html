@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football League Simulation</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/weeks.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Football League Simulation</h1>
+
+    <!-- Ссылка на страницу управления командами -->
+    <a href="/team" class="button">Manage Teams</a>
+
+    <section>
+        <h2>Matches for Current Week</h2>
+        <button id="start-game" class="button">Start New Game</button>
+
+        <table border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td valign="top">
+                    <table border="1" cellpadding="0" cellspacing="0" id="league-table">
+                        <thead>
+                            <tr>
+                                <td colspan="7">League Table</td>
+                            </tr>
+                            <tr>
+                                <td>Teams</td>
+                                <td>PTS</td>
+                                <td>P</td>
+                                <td>W</td>
+                                <td>D</td>
+                                <td>L</td>
+                                <td>GD</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </td>
+                <td valign="top">
+                    <table border="1" cellpadding="0" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <td colspan="3">Match Information</td>
+                        </tr>
+                        </thead>
+                    </table>
+                    <table border="1" cellpadding="0" cellspacing="0" id="this-week-game-result-table" style="display: none">
+                        <thead>
+                        <tr>
+                            <td colspan="3">
+                                This Week Matches Results / Week <span id="week-count">0</span>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table border="1" cellpadding="0" cellspacing="0" id="next-week-game-table">
+                        <thead>
+                        <tr>
+                            <td colspan="3">
+                                Next Week Matches / Week <span id="next-week-count">1</span>
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <button id="next-week" class="button" style="display: none;">Play Next Week</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </td>
+                <td valign="top">
+                    <table border="1" cellpadding="0" cellspacing="0" id="championship-prediction-table">
+                        <thead>
+                        <tr>
+                            <td colspan="2">Predictions of Championship</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </section>
+</div>
+</body>
+</html>

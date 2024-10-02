@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Management</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/teams.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Team Management</h1>
+
+    <!-- Ссылка на страницу симуляции матчей -->
+    <a href="/" class="button">Go to Simulation</a>
+
+    <!-- Форма для добавления команды -->
+    <section class="add-team-section">
+        <h2>Add a New Team</h2>
+        <form id="add-team-form">
+            <div class="form-group">
+                <label for="team-name">Team Name</label>
+                <input type="text" id="team-name" placeholder="Team Name" required>
+            </div>
+            <div class="form-group">
+                <label for="team-strength">Team Strength (1-5)</label>
+                <input type="number" id="team-strength" placeholder="Team Strength" required min="1" max="5">
+            </div>
+            <button type="submit" class="button">Add Team</button>
+        </form>
+    </section>
+
+    <!-- Список команд -->
+    <section class="team-list-section">
+        <h2>Teams</h2>
+        <ul id="team-list">
+            <!-- Список команд будет загружен динамически -->
+        </ul>
+    </section>
+</div>
+</body>
+</html>
