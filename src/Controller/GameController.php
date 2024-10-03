@@ -18,12 +18,17 @@ class GameController
     private $matchRepo;
     private $leagueStatsRepo;
 
-    public function __construct()
+    public function __construct(
+        TeamRepository $teamRepo,
+        MatchRepository $matchRepo,
+        LeagueStatsRepository $leagueStatsRepo,
+        GameRepository $gameRepo
+    )
     {
-        $this->teamRepo = new TeamRepository();
-        $this->matchRepo = new MatchRepository();
-        $this->leagueStatsRepo = new LeagueStatsRepository();
-        $this->gameRepo = new GameRepository();
+        $this->teamRepo = $teamRepo;
+        $this->matchRepo = $matchRepo;
+        $this->leagueStatsRepo = $leagueStatsRepo;
+        $this->gameRepo = $gameRepo;
         $this->gameService = new GameService($this->gameRepo, $this->leagueStatsRepo);
     }
 
@@ -44,6 +49,7 @@ class GameController
     {
         $week = $this->matchRepo->getNextWeek();
         $matches = $this->matchRepo->getMatchesForWeek($week);
+
         echo json_encode($matches);
     }
 
@@ -51,9 +57,9 @@ class GameController
     {
         $week = $this->matchRepo->getCurrentWeek();
         $matches = $this->matchRepo->getMatchesForWeek($week);
+
         echo json_encode($matches);
     }
-
 
     public function nextWeekAction()
     {
@@ -71,11 +77,10 @@ class GameController
             $game = new Game($homeTeam, $awayTeam, $week);
             $game->simulate();
             $this->matchRepo->updateMatch($game, $week);
-            $this->gameService->updateLeagueStats($homeTeam, $awayTeam, $game->getResult()['home_team']['goals'], $game->getResult()['away_team']['goals'], $this->leagueStatsRepo);
+            $this->gameService->updateLeagueStats($homeTeam, $awayTeam, $game->getResult()['home_team']['goals'], $game->getResult()['away_team']['goals']);
         }
 
         echo json_encode(['success' => true]);
-        return;
     }
 
 

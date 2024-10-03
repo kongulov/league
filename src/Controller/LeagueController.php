@@ -9,14 +9,15 @@ class LeagueController
 {
     private $leagueStatsRepo;
 
-    public function __construct()
+    public function __construct(LeagueStatsRepository $leagueStatsRepo)
     {
-        $this->leagueStatsRepo = new LeagueStatsRepository();
+        $this->leagueStatsRepo = $leagueStatsRepo;
     }
 
     public function getLeagueTableAction()
     {
         $leagueTable = $this->leagueStatsRepo->getLeagueTable();
+
         echo json_encode($leagueTable);
     }
 }

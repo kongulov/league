@@ -8,13 +8,12 @@ class MatchRepository
 {
     private $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getPDO();
     }
 
-    public function updateMatch(Game $game, int $week)
+    public function updateMatch(Game $game, int $week): void
     {
         $result = $game->getResult();
 
@@ -56,24 +55,28 @@ class MatchRepository
             JOIN teams t2 ON m.away_team_id = t2.id
         ');
         $stmt->execute();
+
         return $stmt->fetchAll();
     }
 
     public function getNextWeek(): int
     {
         $stmt = $this->pdo->query('SELECT MIN(week) FROM matches where is_finished = 0');
+
         return (int)$stmt->fetchColumn();
     }
 
     public function getCurrentWeek(): int
     {
         $stmt = $this->pdo->query('SELECT MAX(week) FROM matches where is_finished = 1');
+
         return (int)$stmt->fetchColumn();
     }
 
     public function deleteAllMatches(): void
     {
         $stmt = $this->pdo->prepare('DELETE FROM matches');
+
         $stmt->execute();
     }
 }

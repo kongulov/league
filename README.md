@@ -5,7 +5,7 @@ composer i
 ```
 
 ```shell
-docker-compose up --build -d
+docker compose up --build -d
 ```
 
 # for test:

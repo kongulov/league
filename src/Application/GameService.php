@@ -17,6 +17,7 @@ class GameService
         $this->gameRepo = $gameRepo;
         $this->leagueStatsRepo = $leagueStatsRepo;
     }
+
     public function generateWeeklyMatches(array $teams): void
     {
         $teamsCount = count($teams);
@@ -34,10 +35,10 @@ class GameService
         }
     }
 
-    public function updateLeagueStats(Team $homeTeam, Team $awayTeam, int $homeGoals, int $awayGoals, $leagueStatsRepo)
+    public function updateLeagueStats(Team $homeTeam, Team $awayTeam, int $homeGoals, int $awayGoals): void
     {
-        $homeStats = $leagueStatsRepo->getStatsForTeam($homeTeam->getId());
-        $awayStats = $leagueStatsRepo->getStatsForTeam($awayTeam->getId());
+        $homeStats = $this->leagueStatsRepo->getStatsForTeam($homeTeam->getId());
+        $awayStats = $this->leagueStatsRepo->getStatsForTeam($awayTeam->getId());
 
         if ($homeGoals > $awayGoals) {
             $homeStats->addWin();
@@ -53,8 +54,8 @@ class GameService
         $homeStats->updateGoalDifference($homeGoals - $awayGoals);
         $awayStats->updateGoalDifference($awayGoals - $homeGoals);
 
-        $leagueStatsRepo->saveUpdatedStats($homeStats);
-        $leagueStatsRepo->saveUpdatedStats($awayStats);
+        $this->leagueStatsRepo->saveUpdatedStats($homeStats);
+        $this->leagueStatsRepo->saveUpdatedStats($awayStats);
     }
 
     public function getWinProbForAllTeams(): array

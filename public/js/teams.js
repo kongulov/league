@@ -29,7 +29,12 @@ $(document).ready(function() {
             url: "/team/addTeam",
             method: "POST",
             data: { name: teamName, strength: teamStrength },
-            success: function() {
+            success: function(response) {
+                response = JSON.parse(response);
+                if (response.error !== undefined) {
+                    alert(response.error);
+                    return;
+                }
                 loadTeams();
                 $("#team-name").val('');
                 $("#team-strength").val('');

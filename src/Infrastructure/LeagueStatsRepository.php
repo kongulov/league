@@ -8,13 +8,12 @@ class LeagueStatsRepository
 {
     private $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getPDO();
     }
 
-    public function getStatsForTeam(int $teamId)
+    public function getStatsForTeam(int $teamId): League
     {
         $stmt = $this->pdo->prepare('SELECT * FROM league_stats WHERE team_id = :team_id');
         $stmt->execute(['team_id' => $teamId]);

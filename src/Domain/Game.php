@@ -18,7 +18,7 @@ class Game
         $this->week = $week;
     }
 
-    public function simulate()
+    public function simulate(): void
     {
         $this->homeGoals = rand(0, $this->homeTeam->getStrength());
         $this->awayGoals = rand(0, $this->awayTeam->getStrength());

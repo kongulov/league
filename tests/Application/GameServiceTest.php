@@ -24,7 +24,6 @@ class GameServiceTest extends TestCase
         $this->gameService = new GameService($this->gameRepo, $this->leagueStatsRepo);
     }
 
-    // generateWeeklyMatches test
     public function testGenerateWeeklyMatches()
     {
         $team1 = new Team(1, 'Real Madrid', 5);
@@ -63,7 +62,7 @@ class GameServiceTest extends TestCase
         $this->leagueStatsRepo->expects($this->exactly(2))
             ->method('saveUpdatedStats');
 
-        $this->gameService->updateLeagueStats($homeTeam, $awayTeam, 2, 1, $this->leagueStatsRepo);
+        $this->gameService->updateLeagueStats($homeTeam, $awayTeam, 2, 1);
     }
 
     public function testGetWinProbForAllTeams()

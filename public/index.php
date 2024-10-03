@@ -1,5 +1,7 @@
 <?php
 
+use Infrastructure\Container;
+
 require '../vendor/autoload.php';
 
 $request = $_SERVER['REQUEST_URI'];
@@ -19,54 +21,13 @@ if (!class_exists($controller)) {
     exit;
 }
 
-$controller = new $controller();
-if (!method_exists($controller, $action)) {
+$container = new Container();
+$controllerInstance = $container->get($controller);
+
+if (!method_exists($controllerInstance, $action)) {
     http_response_code(404);
     echo 'Action not found';
     exit;
 }
 
-$controller->$action();
-
-/*
-
-$teamController = new TeamController();
-$gameController = new GameController();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-
-    switch ($action) {
-        case 'start_new_game':
-            $matches = $gameController->startNewGame();
-            echo json_encode(['success' => true, 'matches' => $matches]);
-            break;
-        case 'next_week':
-            $results = $gameController->playNextWeek();
-            if ($results) {
-                echo json_encode(['success' => true, 'results' => $results]);
-            } else {
-                echo json_encode(['error' => 'No more weeks']);
-            }
-            break;
-        default:
-            http_response_code(400);
-            echo json_encode(['error' => 'Unknown action']);
-            break;
-    }
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $action = $_GET['action'] ?? '';
-
-    if ($action === 'get_teams') {
-        $teams = $teamController->getTeams();
-        echo json_encode($teams);
-    } elseif ($action === 'get_matches_for_week') {
-        $matches = $gameController->getMatchesForCurrentWeek();
-        echo json_encode($matches);
-    } else {
-        http_response_code(400);
-        echo json_encode(['error' => 'Unknown action']);
-    }
-}*/
+$controllerInstance->$action();

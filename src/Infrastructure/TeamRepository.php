@@ -8,9 +8,8 @@ class TeamRepository
 {
     private $pdo;
 
-    public function __construct()
+    public function __construct(Database $db)
     {
-        $db = new Database();
         $this->pdo = $db->getPDO();
     }
 

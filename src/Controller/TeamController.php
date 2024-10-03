@@ -9,9 +9,9 @@ class TeamController
 {
     private $teamRepo;
 
-    public function __construct()
+    public function __construct(TeamRepository $teamRepository)
     {
-        $this->teamRepo = new TeamRepository();
+        $this->teamRepo = $teamRepository;
     }
 
     public function indexAction()
@@ -21,16 +21,25 @@ class TeamController
 
     public function addTeamAction()
     {
-        $name = $_POST['name'];
-        $strength = (int)$_POST['strength'];
+        try {
+            $name = $_POST['name'];
+            $strength = (int)$_POST['strength'];
 
-        $this->teamRepo->saveTeam(new Team(null, $name, $strength));
+            $this->teamRepo->saveTeam(new Team(null, $name, $strength));
+
+            echo json_encode(['success' => true]);
+        }
+        catch (\Exception $e) {
+            echo json_encode(['error' => $e->getMessage()]);
+        }
     }
 
     public function deleteTeamAction()
     {
         $teamId = (int)$_POST['id'];
         $this->teamRepo->deleteTeam($teamId);
+
+        echo json_encode(['success' => true]);
     }
 
     public function getTeamsAction()
